@@ -1,0 +1,500 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+		"path": "pages/index/index",
+		"style": {
+			"navigationBarTitleText": "swiper",
+			"navigationStyle":"custom",
+			// "enablePullDownRefresh": true,
+			"app-plus": {
+				"titleNView": false,
+				"subNVues": [{
+					"id": "comment",
+					"path": "pages/subnvue/comment",
+					"style": {
+						"height": "100%",
+						"position":"absolute",
+						"bottom":"0",
+						"background":"transparent",
+						"zindex":1
+						
+					}
+				},{
+					"id": "input-box",
+					"path": "pages/subnvue/input-box",
+					"style": {
+						"height": "100%",
+						"position":"absolute",
+						"bottom":"0",
+						"background":"transparent",
+						"zindex":2
+					}
+				}]
+			}
+			}
+		},
+		{
+				"path": "pages/css3/index",
+				"style": {
+					"navigationBarTitleText": "css3",
+					"navigationStyle":"custom"
+				}
+			}
+	    ,{   
+            "path" : "pages/city/city",
+            "style" : {
+				"navigationBarTitleText": "同城",
+				"enablePullDownRefresh": true,
+				"navigationStyle":"custom"
+			}
+        },
+		// ,{
+		//     "path" : "pages/index/video-upload",
+		//     "style" : {
+		// 		"navigationBarTitleText": "视频发布"
+		// 	}
+		// }
+		{
+			"path" : "pages/index/industry",
+			"style" : {
+				"navigationBarTitleText": "行业",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/index/video_detail",
+			"style" : {
+				"navigationBarTitleText": "",
+				"navigationStyle":"custom",
+				"app-plus": {
+					"titleNView": false,
+					"subNVues": [{
+						"id": "comments",
+						"path": "pages/subnvue/comments",
+						"style": {
+							"height": "100%",
+							"position":"absolute",
+							"bottom":"0",
+							"background":"transparent",
+							"zindex":1
+							
+						}
+					},{
+						"id": "input-boxs",
+						"path": "pages/subnvue/input-boxs",
+						"style": {
+							"height": "100%",
+							"position":"absolute",
+							"bottom":"0",
+							"background":"transparent",
+							"zindex":2
+						}
+					}]
+				}
+			}
+		},
+		{
+			"path" : "pages/user/twocertification",
+			"style" : {
+				"navigationBarTitleText": "二级认证",
+				"enablePullDownRefresh": true,
+				"backgroundTextStyle": "dark",
+				"navigationStyle":"custom",
+				"app-plus": {
+					"titleView": false
+				}
+			}
+		},
+		{
+			"path" : "pages/user/bill",
+			"style" : {
+				"navigationBarTitleText":"账单",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/index/local",
+			"style" : {
+				"navigationBarTitleText":"视频上传",
+				"navigationBarBackgroundColor":"#24292E"
+			}
+		},
+		{
+			"path" : "pages/index/record",
+			"style" : {
+				"navigationBarTitleText":"录制上传",
+				"navigationBarBackgroundColor":"#24292E"
+			}
+		}
+		,{
+		    "path" : "pages/index/transaction-buy",
+		    "style" : {
+				"navigationBarTitleText": "购买",
+				"enablePullDownRefresh":true,
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+		    "path" : "pages/jyorder/issueorder",
+		    "style" : {
+				"navigationBarTitleText": "发布订单",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+		    "path" : "pages/my/ability",
+		    "style" : {
+				"navigationBarTitleText": "",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+		    "path" : "pages/jyorder/tobuy",
+		    "style" : {
+				"navigationBarTitleText": "购买下单",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+		    "path" : "pages/jyorder/tosell",
+		    "style" : {
+				"navigationBarTitleText": "出售下单",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+		    "path" : "pages/jyorder/buydetails",
+		    "style" : {
+				"navigationBarTitleText": "购买详情",
+				"navigationStyle":"custom"
+			}
+		} 
+		,{
+		    "path" : "pages/my/team",
+		    "style" : {
+				"navigationBarTitleText": "我的团队",
+				"navigationStyle":"custom"
+			}
+		} 
+		,{
+		    "path" : "pages/jyorder/selldetails",
+		    "style" : {
+				"navigationBarTitleText": "出售详情",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+		    "path" : "pages/jyorder/allorder",
+		    "style" : {
+				"navigationBarTitleText": "订单",
+				"navigationStyle":"custom"
+			}
+		}
+        ,{
+            "path" : "pages/msg/msg",
+            "style" : {
+				"navigationBarTitleText": "消息",
+				"navigationStyle":"custom"
+			}
+        }
+        ,{
+            "path" : "pages/my/my",
+            "style" : {
+				"navigationBarTitleText": "我的",
+				"navigationStyle":"custom"
+			}
+        }
+		,{
+		    "path" : "pages/user/otherus",
+		    "style" : {
+				"navigationBarTitleText":"用户",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+            "path" : "pages/login/login",
+            "style" : {
+				"navigationBarTitleText":"登录",
+				"navigationStyle":"custom"
+			}
+        }
+		,{
+		    "path" : "pages/login/register",
+		    "style" : {
+				"navigationBarTitleText":"注册",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+		    "path" : "pages/login/forget",
+		    "style" : {
+				"navigationBarTitleText":"找回密码",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+		    "path" : "pages/city/cityelection",
+		    "style" : {
+				"navigationBarTitleText": "搜索地址",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/index/search",
+			"style":{
+				"navigationBarTitleText": "搜索",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/my/setting",
+			"style":{
+				"navigationBarTitleText": "账号管理",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/user/editinfo",
+			"style" : {
+				"navigationBarTitleText":"编辑资料",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+			"path" : "pages/user/upload",
+			"style" : {
+				"navigationBarTitleText": "上传头像",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+			"path" : "pages/user/nickname",
+			"style" : {
+				"navigationBarTitleText": "修改昵称",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+			"path" : "pages/my/loginpw",
+			"style" : {
+				"navigationBarTitleText": "修改登录密码",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+			"path" : "pages/my/securityspw",
+			"style" : {
+				"navigationBarTitleText": "修改安全密码",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+			"path" : "pages/user/signature",
+			"style" : {
+				"navigationBarTitleText": "个性签名",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+			"path" : "pages/user/gender",
+			"style" : {
+				"navigationBarTitleText": "设置性别",
+				"navigationStyle":"custom"
+			}
+		}
+		,{
+			"path" : "pages/my/setup",
+			"style" : {
+				"navigationBarTitleText": "个人中心",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/my/about",
+			"style" : {
+				"navigationBarTitleText": "关于我们",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/my/inscription",
+			"style" : {
+				"navigationBarTitleText": "慈场园",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/my/inscription_linqu",
+			"style" : {
+				"navigationBarTitleText": "我的慈场",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/my/aboutdetails",
+			"style" : {
+				"navigationBarTitleText": "关于慈惠",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/msg/privacy_agreement",
+			"style" : {
+				"navigationBarTitleText": "隐私协议",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/msg/user_agreement",
+			"style" : {
+				"navigationBarTitleText": "用户协议",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/bank/bank_list",
+			"style" : {
+				"navigationBarTitleText": "收款列表",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/bank/bank_set",
+			"style" : {
+				"navigationBarTitleText": "添加收款",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/my/invitation",
+			"style" : {
+				"navigationBarTitleText": "邀请",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/user/fans",
+			"style" : {
+				"navigationBarTitleText": "粉丝",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/user/follow",
+			"style" : {
+				"navigationBarTitleText": "关注",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/user/friends",
+			"style" : {
+				"navigationBarTitleText": "好友",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/user/fabulous",
+			"style" : {
+				"navigationBarTitleText": "点赞",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/user/aitme",
+			"style" : {
+				"navigationBarTitleText": "@我",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/user/comment",
+			"style" : {
+				"navigationBarTitleText": "评论",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/index/put",
+			"style" : {
+				"navigationBarTitleText": "上传",
+				"navigationStyle":"custom"
+			}
+		},
+		{
+			"path" : "pages/user/certification",
+			"style" : {
+				"navigationBarTitleText": "实名认证",
+				"enablePullDownRefresh": true,
+				"backgroundTextStyle": "dark",
+				"navigationStyle":"custom",
+				"app-plus": {
+				    "titleView": false
+				}
+			}
+		},
+		{
+		    "path" : "pages/msg/msgdetails",
+		    "style" : {
+				"navigationBarTitleText":"系统消息",
+				"navigationBarBackgroundColor":"#000000",
+				"navigationStyle":"custom"
+				}
+		}
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "慈惠",
+		"navigationBarBackgroundColor": "#000000",
+		"backgroundColor": "#000000",
+		"navigationStyle": "custom"
+	},
+	"tabBar": {
+		"borderStyle": "black",
+		"backgroundColor": "#1c1d1f",
+		"color": "#A7A8AD",
+		"selectedColor": "#FAFAFC",
+		"midButton":{
+			"iconPath":"static/img/add.png",
+			"height":"60px",
+			"width":"90px",
+			"iconWidth":"50px",
+			"pagePath": "pages/index/put"
+		},
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/home.png",
+				"selectedIconPath": "static/home.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/city/city",
+				"iconPath": "static/jiaoyi.png",
+				"selectedIconPath": "static/jiaoyi.png",
+				"text": "同城"
+			},
+			// {
+			// 	"pagePath": "pages/index/transaction-buy",
+			// 	"iconPath": "static/jiaoyi.png",
+			// 	"selectedIconPath": "static/jiaoyi.png",
+			// 	"text": "交易"
+			// },
+			{
+				"pagePath": "pages/msg/msg",
+				"iconPath": "static/gonga.png",
+				"selectedIconPath": "static/gonga.png",
+				"text": "消息"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"iconPath": "static/usericon.png",
+				"selectedIconPath": "static/usericon.png",
+				"text": "我的"
+			}
+		]
+	},
+	"globalStyle": {
+		// "navigationStyle": "custom"
+	}
+	
+}
