@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name ="viewport" content ="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+    <title>本地视频上传</title>
+    <script src="/Public/home/common/js/jquery-1.9.1.min.js"></script>
+    <script src="/Public/home/common/layer/layer.js"></script>
+    <script src="/Public/js/lib/es6-promise.min.js"></script>
+    <script src="/Public/js/lib/aliyun-oss-sdk-5.2.0.min.js"></script>
+    <script src="/Public/js/aliyun-upload-sdk-1.4.0.min.js"></script>
+    <style>
+        body{background: #18191d;}
+        .content{width: 100%}
+        .cu-bar{color:#ffffff;display: -webkit-box;display: -webkit-flex;display: flex;position: relative;-webkit-box-align: center;-webkit-align-items: center;align-items: center;min-height: 50px;}
+        .title{
+            width: 80%;height: 20px; padding: 5px;color: #ffffff;
+            border: none; background: rgba(204, 204, 204, 0);outline:medium;
+        }
+        .desc{color: #ffffff;height: 200px}
+        .desc textarea{
+            outline:medium;
+            height: 70px;
+            resize: none;
+            background: none;
+            color: inherit;
+            opacity: 1;
+            width: 95%;
+            padding-top: 5px;
+            border: none;
+        }
+        .paddings{height: 35px;color: #ffffff;display: flex;align-items: center}
+        .paddings img{height: 20px;margin-left: 10px;align-items: center;margin-right: 5px;}
+        .button{width: 25%;position: absolute;bottom: 120px;text-align: center;}
+        button{border: 1px solid blue;background: blue;color: #fff;padding: 4px 25px;border-radius: 3px;}
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="cu-bar">
+        标题：<input type="text" placeholder="留下你的标题" value="" name="title" class="title">
+    </div>
+    <div class="desc">
+        <div>描述：</div>
+        <textarea placeholder="留下你的描述..." id="desc"></textarea>
+    </div>
+    <div class="paddings  text-black">
+        <text id="xuanzetxt">视频预览</text>
+    </div>
+    <div>
+        <video width="320" height="240" controls>
+            <source src="F:/1.mp4" type="video/mp4">
+        </video>
+        <input class="form-control" type="file" style="height:auto;display: none" id="video" name="video"/>
+    </div>
+    <div style="width:0%;height:10px;background-color:#2d93ca;" id="jindu"></div>
+    <div class="button">
+
+        <button onclick="submit()">提交</button>
+    </div>
+    <input type="hidden" id="uploadAuth" value="">
+    <input type="hidden" id="uploadAddress" value="">
+    <input type="hidden" id="videoId" value="">
+</div>
+<script>
+
+    var video_src =getQuery('video_src');
+    var openid = getQuery('openid');
+    //取url中的参数值
+    function getQuery(name) {
+        let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        let r = window.location.search.substr(1).match(reg);
+        if(r != null) {
+            // 对参数值进行解码
+            return decodeURIComponent(r[2]);
+        }
+        return null;
+    }
+    $(function () {
+        // var url = URL.createObjectURL(video_src);
+        // console.log(url);
+        // document.getElementById("video0").src = url;
+        $("#video0").attr("src", video_src);
+    })
+    function submit(){
+        var f = document.getElementById("video").files;
+        var title = $(" input[ name='title' ] ").val();
+        var desc = $("#desc").val();
+        $.post("{:U('getvideo')}",{longitude:resaddress.longitude,latitude:resaddress.latitude,city:resaddress.city,openid:openid,title:title,name:f[0].name,desc:desc},function(res){
+            $("#uploadAuth").val(res.UploadAuth);
+            $("#uploadAddress").val(res.UploadAddress);
+            $("#videoId").val(res.VideoId);
+            var userData = '{"Vod":{"StorageLocation":"","UserData":{"IsShowWaterMark":"false","Priority":"7"}}}';
+            uploader.addFile(f[0], null, null, null, userData);
+            layer.load(2);
+            uploader.startUpload();
+        })
+
+    }
+    var uploader = new AliyunUpload.Vod({
+        // 文件上传失败
+        'onUploadFailed': function (uploadInfo, code, message) {
+            layer.closeAll('loading');
+            layer.msg("文件上传失败，code:" + code + ", message:" + message);
+            location.reload();
+            //log("onUploadFailed: file:" + uploadInfo.file.name + ",code:" + code + ", message:" + message);
+        },
+        // 文件上传完成
+        'onUploadSucceed': function (uploadInfo) {
+            layer.closeAll('loading');
+            layer.msg('上传成功！');
+            //log("onUploadSucceed: " + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object);
+        },
+        // 文件上传进度
+        'onUploadProgress': function (uploadInfo, totalSize, loadedPercent) {
+            $("#jindu").css("width",(loadedPercent * 100.00).toFixed(2) + "%");
+            //log("onUploadProgress:file:" + uploadInfo.file.name + ", fileSize:" + totalSize + ", percent:" + (loadedPercent * 100.00).toFixed(2) + "%");
+        },
+        // STS临时账号会过期，过期时触发函数
+        'onUploadTokenExpired': function (uploadInfo) {
+            layer.closeAll('loading');
+            layer.msg("文件上传失败" );
+        },
+        onUploadCanceled:function(uploadInfo)
+        {
+            layer.closeAll('loading');
+            layer.msg("文件上传失败" );
+        },
+        // 开始上传
+        'onUploadstarted': function (uploadInfo) {
+            var uploadAuth = document.getElementById("uploadAuth").value;
+            var uploadAddress = document.getElementById("uploadAddress").value;
+            var videoId = document.getElementById("videoId").value;
+            uploader.setUploadAuthAndAddress(uploadInfo, uploadAuth, uploadAddress,videoId);
+        }
+        ,
+        'onUploadEnd':function(uploadInfo){
+
+        }
+    });
+    $("#video").change(function(){
+        if(checkTv()==1){
+            layer.msg('请选择视频文件');
+            document.getElementById('video').value="";   // 不符合，就清除，重新选择
+            return;
+        };
+
+        var objUrl = getObjectURL(this.files[0]) ;
+        if (objUrl) {
+            $("#video0").attr("src", objUrl);
+            $("#video0").css('display','inline');
+            $("#xuanzetxt").text('重新选择');
+        }
+    }) ;
+    //建立一个可存取到该file的url
+    function getObjectURL(file) {
+
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+
+
+        return url ;
+    }
+    //判断类型
+    function checkTv(){
+        var tv_id =document.getElementById('video').value;//根据id得到值
+        var index= tv_id.indexOf("."); //（考虑严谨用lastIndexOf(".")得到）得到"."在第几位
+        tv_id=tv_id.substring(index); //截断"."之前的，得到后缀
+        if(tv_id!=".mp4"&&tv_id!=".rmvb"&&tv_id!=".avi"&&tv_id!=".ts"){ //根据后缀，判断是否符合视频格式
+            return 1;
+        }
+    }
+</script>
+</body>
+</html>

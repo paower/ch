@@ -1,0 +1,252 @@
+<extend name="Public/layout"/>
+<block name="style" >
+    <link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+    <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+<style>
+  .sum {overflow:hidden}
+  .sum div{font-size: 20px; float: left; padding: 10px;color: #333;}
+  </style>
+
+</block>
+
+<block name="main">
+   <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+        <!-- 面包屑导航 -->
+        <ul class="breadcrumb">
+            <li><i class="fa fa-map-marker"></i></li>
+            <foreach name="_menu_tab['name']" item="tab_v" >
+            <li class="text-muted">{$tab_v}</li>
+            </foreach>
+        </ul>
+
+        <!-- 主体内容区域 -->
+        <div class="tab-content ct-tab-content">
+            <div class="panel-body">
+                <div class="builder formbuilder-box">
+                        
+                        <div class="form-group"></div>
+
+                        <!-- 顶部工具栏按钮 -->
+                        <div class="builder-toolbar">
+                            <div class="row">
+                                <!-- 工具栏按钮 -->
+                                    <!-- <div class="col-xs-12 col-sm-8 button-list clearfix">
+                                        <div class="form-group">
+                                            <a title="新增" class="btn btn-primary-outline btn-pill" href="{:U('Scroll/add')}">新增</a>&nbsp;
+                                        </div>
+                                    </div> -->
+
+                                <!-- 搜索框 -->
+                                <div class="col-xs-12 col-sm-12 clearfix">
+                                    <form class="form" method="get" action="">
+                                        <div class="form-group right">
+
+                                            <div style="float:left;width:150px;margin-right:20px" class="">
+                                                <input type="text" name="date_start" class="search-input form-control date" value="{$_GET.date_start}" placeholder="开始日期">
+                                            </div>
+                                            <div style="float:left;width:150px;margin-right:20px" class="">
+                                                <input type="text" name="date_end" class="search-input form-control date" value="{$_GET.date_end}" placeholder="结束日期">
+                                            </div>
+
+                                            <div style="float:left;width:120px;margin-right:20px" class="">
+                                                <select name="querytype" class="form-control lyui-select select">
+                                                    <!--                                                <option  value="userid">ID号</option>-->
+                                                    <option {eq name=":input('get.querytype')" value="mobile" }selected="true"{/eq}  value="mobile">手机</option>
+                                                    <!--                                                <option {eq name=":input('get.querytype')" value="account" }selected="true"{/eq}  value="account">账号</option>-->
+                                                </select>
+                                            </div>
+
+
+                                            <div style="width:250px" class="input-group search-form">
+                                                <input  type="text" name="keyword" class="search-input form-control" value="{$_GET.keyword}" placeholder="输入搜索内容">
+                                                <span class="input-group-btn"><a class="btn btn-default search-btn"><i class="fa fa-search"></i></a></span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        
+
+                        <style type="text/css">
+                            tr,td{
+                               margin: 0 !important;
+                               padding: 5px 5px !important;
+                            }
+                        </style>
+                        <div>
+                            <button id="allyes">批量通过</button>
+                            <button id="allno">批量不通过</button>
+                        </div>
+                        <!-- 数据列表 -->
+                        <div class="builder-container">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="builder-table">
+                                        <div class="panel panel-default table-responsive">
+                                            <table class="table table-bordered table-striped table-hover">
+                                              <thead>
+                                                <tr>
+                                                    <th><input type="checkbox" name="" id="allcheck">全选</th>
+                                                    <th>ID</th>
+                                                    <th>用户</th>
+                                                    <th>身份证号</th>
+                                                    <th>真实姓名</th>
+<!--                                                    <th>手机号码</th>-->
+                                                    <th>身份证正面</th>
+                                                    <th>身份证反面</th>
+                                                    <th>状态</th>
+                                                    <th style="max-width:20%" >操作</th>
+                                                </tr>
+                                            </thead>
+                                                <tbody>
+                                                    <volist name="list" id="data">
+                                                        <tr>
+                                                            <td>
+                                                                <if condition="$data['is_verify'] eq 0"><input type="checkbox" name="ids" value="{$data['id']}"></if>
+                                                            </td>
+                                                            <td>{$data['id']}</td>
+                                                            <td>
+                                                                账号：{$data['account']} <br/>
+                                                                姓名：{$data['username']} <br/>
+                                                                手机：{$data['mobile']} <br/>
+                                                            </td>
+                                                            <!-- 财富 -->
+                                                            <td style="white-space: nowrap;" >
+                                                                {$data['id_card']}
+                                                            </td>
+                                                            
+                                                            <td>{$data['truename']}</td>
+<!--                                                            <td>{$data['phone']}</td>-->
+                                                            <td>
+                                                                <a href="{$data['pic1']}" target="_blank"><img src="{$data['pic1']}" width="100px" height="50px"/></a>
+                                                                
+                                                            </td>
+                                                            
+                                                            <td>
+                                                                <a href="{$data['pic2']}" target="_blank"><img src="{$data['pic2']}" width="100px" height="50px"/></a>
+
+                                                            </td>
+
+                                                            <td>
+                                                               <if condition="$data['is_verify'] eq 0">
+                                                                   未审核
+                                                                <elseif condition="$data['is_verify'] eq 1"/>
+                                                                    审核通过
+                                                                <else/>
+                                                                    审核不通过
+                                                               </if>
+                                                            </td>
+                                                            <td>
+                                                                <if condition="$data['is_verify'] eq 0">
+                                                                    <a name="forbid" title="通过" class="label label-success-outline label-pill ajax-get confirm" href="{:U('UserVerify/setYesVerify',array('id'=>$data['id']))}">通过</a>
+                                                                    <a name="forbid" title="不通过" class="label label-danger-outline label-pill ajax-get confirm" href="{:U('UserVerify/setNoVerify',array('id'=>$data['id']))}">不通过</a>
+                                                                </if>
+                                                        </tr>
+                                                    
+                                                    </volist>
+
+                                                    <empty name="list">
+                                                        <tr class="builder-data-empty">
+                                                            <td class="text-center empty-info" colspan="20">
+                                                                <i class="fa fa-database"></i> 暂时没有数据<br>
+                                                            </td>
+                                                        </tr>
+                                                    </empty>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <notempty name="show">
+                                            <ul class="pagination">{$show}</ul>
+                                        </notempty>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+            </div>
+    </div>                   
+</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+    $('.date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true,
+        todayBtn:1, //是否显示今日按钮
+    });
+ 
+
+
+    $(document).ready(function(){
+  
+        $(".bky").click(function(){
+
+            this.href="###";
+            alert("您无权限访问");  
+            return false;     
+
+        });
+        
+        //全选
+        $("#allcheck").click(function(){
+            if(this.checked){
+                $('input[type=checkbox]').prop('checked','checked');
+            }else{
+                $('input[type=checkbox]').removeProp('checked','checked');
+            }
+        })
+
+        $('#allyes').click(function(){
+            var ids = [];
+            $("input[name='ids']:checked").each(function(i){
+                ids.push($(this).val())
+            })
+            if(ids.length == 0){
+                alert('你还没选择');
+                return;
+            }
+            $.ajax({
+                type:'POST',
+                data:{ids:ids},
+                url:"{:U('allsetYesVerify')}",
+                success:function(res){
+                    alert(res.message);
+                    window.location.reload();
+                }
+            })
+        })
+
+        $('#allno').click(function(){
+            var ids = [];
+            $("input[name='ids']:checked").each(function(i){
+                ids.push($(this).val())
+            })
+            if(ids.length == 0){
+                alert('你还没选择');
+                return;
+            }
+            $.ajax({
+                type:'POST',
+                data:{ids:ids},
+                url:"{:U('allsetNoVerify')}",
+                success:function(res){
+                    alert(res.message);
+                    window.location.reload();
+                }
+            })
+        })
+
+
+    });
+</script>
+    <script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

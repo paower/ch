@@ -1,0 +1,48 @@
+/* login */
+.bgf5{background:#000;}
+.header_back {position: absolute;top: 18px;left: 10px;}
+.header_back img{width: 1.3rem;}
+.login-container{width: 100%;}
+.language{width: 100%;display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-pack: end;-ms-flex-pack: end;justify-content: flex-end;padding: .5rem .3rem}
+.yuyan{font-size: .32rem;color: #fff;display: flex;align-items: center;}
+.yuyan select{font-size: .28rem;background: none;border: none;color: #fff;outline: none;} 
+.yuyan option{color: #000;}
+.logo{ width:100%; text-align: center;position: relative;top: -0.95rem}
+.logo img{ width: 12.9rem; margin: 77px 0 30px 0; }
+.formbox{ width: 85%; margin: 0 auto; text-align: center; border-radius:8px; -webkit-border-radius:8px; -moz-border-radius:8px; -ms-border-radius:8px; -o-border-radius:8px; }
+.formlogin{width:85%;margin: 0 auto;color: #fff;font-size: .83rem;position: relative;top: -0.55rem;}
+.input_box{width: 100%; border: 1px solid #6e6e6e; border-radius:30px; color:#fff; margin-top:20px}
+.input_box i{
+	font-size: 20px;
+    width: 5%;
+    padding-top: 11px;
+    float: left;
+}
+.input_box input{width:90%; padding: .3rem 0;font-size:0.3rem; background: none; text-align: left; color: #fff;}
+.input_box1 input{padding: .3rem 0;font-size:0.3rem; background: none; text-align: left; color: #fff;}
+.inde-btn button{ margin:2rem 0;width: 100%; padding: .3rem 0;background: linear-gradient(160deg, rgb(162, 0, 255) 20%, rgb(82, 39, 234) 80%);color: #fff; border-radius:.5rem; -webkit-border-radius:.5rem; -moz-border-radius:.5rem; -ms-border-radius:.1rem; -o-border-radius:.5rem; }
+.extra_btn{display: -webkit-box;display: -ms-flexbox;display: flex;-webkit-box-pack: justify;-ms-flex-pack: justify;justify-content: space-between;}
+.extra_btn a{color: #fff;}
+#loginForm input{
+	color:#fff;
+
+}
+
+/* register */
+.register-title{color: #fff;font-size: 0.4rem;text-align: center;padding: .8rem 0;letter-spacing: .1rem;text-indent: .1rem;}
+.formrgister{width: 100%;margin:0 auto;padding-top: .2rem;font-size: .3rem;}
+/* .register-container .formbox{margin-top: 33px;} */
+/* .formrgister .input_box{margin-top: .3rem;} */
+.formrgister .input_box p{color: #fff}
+.formrgister .inde-btn button{margin: 0.5rem 0 0 0;}
+.register-container .extra_btn{-webkit-box-pack: center;-ms-flex-pack: center;justify-content: center;margin: .5rem 0 1rem 0;}
+.input_box .input-code{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-pack: justify;-ms-flex-pack: justify;justify-content: space-between;-webkit-box-align: center;-ms-flex-align: center;align-items: center;margin-top: .2rem;}
+.input_box .input-code input{width: 60%;margin: 0;}
+.input_box .input-code img{ width: 35%;height: 1.8rem; border-radius:.1rem; -webkit-border-radius:.1rem; -moz-border-radius:.1rem; -ms-border-radius:.1rem; -o-border-radius:.1rem; }
+.input_box .phone-code{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center}
+.input_box .phone-code input{width:50%;height:.3rem;border-radius:0;}
+.input_box .phone-code a{width: 50%;height:0.8rem; display: block;color:#fff;margin: .2rem;padding: .2rem 0;background: #0f06d5;font-size:.3rem;border-radius:.5rem;}
+/* getpsw */
+.formgetpsw .input_box p{color: #fff}
+.formgetpsw .input_box {margin-top: .5rem;}
+.getpwd-title{padding-top:1rem}

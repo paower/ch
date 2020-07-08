@@ -1,0 +1,90 @@
+.user-top{width: 100%; background: linear-gradient(to top right, #e64758, #f4b959); padding: 1.2rem 0;
+}
+.user-head , .user_dt {width: 100%;text-align: center;}
+.user_dt{
+	font-size:13px;
+	padding-top:3px;
+	color:#fff;
+}
+.user_dt p{
+	line-height: 18px;
+    height: 18px;
+}
+.generalin01{
+	padding:13px 0;
+}
+.user-head img{ width: 3.2rem; height: 3.2rem; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%;}
+.user-top-msg{width: 100%;display: flex;align-items: center;margin-top: .2rem}
+.user-top-msg li{flex: 1;color: #fff;text-align: center;font-size: .28rem}
+.vip-set{width: 100%;text-align: center;height: 1.4rem;line-height: 1.4rem;background: #faf9ef;color: #eb1420;font-size: .35rem;}
+.setlistbox{width:100%;background: #f9f8ee; padding-top:5px;}
+.setlistbox ul{display: flex;padding: .6rem 0 .6rem 0;background: #fff;margin-bottom: .5rem}
+.setlistbox ul li{width: 33.3%;text-align: center;}
+/* .setlistbox ul li:nth-child(2){border-left: 1px solid #e3e3e3;border-right: 1px solid #e3e3e3} */
+.setlistbox ul li img{width: 1.6rem;}
+.setlistbox ul li a p{color: #000;font-size: .8rem;padding: .1rem 0;}
+.setlistbox ul.twolist li{width: 50%;}
+.setlistbox ul.twolist li:nth-child(2){border-right: none;}
+.setlistbox ul.twolist li a{display: flex;align-items: center;margin-left: .6rem;}
+.loginout{width: 100%;margin: .5rem 0 4.5rem 0;}
+.loginout a{font-size: .88rem; display: block; border-radius:.4rem;margin: 0 auto; width: 80%; padding: .6rem; text-align: center; background: #eb0001; color: #fff; -webkit-border-radius:.1rem; -moz-border-radius:.1rem; -ms-border-radius:.1rem; -o-border-radius:.1rem; }
+.strongtxt{
+	text-align:center;
+}
+.mall_order{
+	width:100%;
+	margin:0 auto;
+	height:30px;
+	line-height:30px;
+	font-size:10px;
+	background:#fff;
+	border-bottom:1px solid #dedede;
+	
+}
+.mall_order span{
+	width:50%;
+	text-align: left;
+	font-size:14px;
+	padding-left:5%;
+}
+.mall_order a{
+	width:50%;
+	float: right;
+	text-align: right;
+	padding-right:5%;
+}
+
+.user_categories{
+	margin-bottom: 0rem !important;
+}
+
+/* 底部 */
+.footer-fan{
+	position: fixed;
+    height: 46px;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+}
+.footer-fan a{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color:#000;
+    
+    flex:1;
+}
+.footer-fan a:last-child{
+    border-right: none;
+}
+.footer-fan a img{
+    width: 26px;
+    height: 26px;
+}

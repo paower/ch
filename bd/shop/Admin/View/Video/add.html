@@ -1,0 +1,217 @@
+<extend name="Public/layout"/>
+<block name="style" >
+    <link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+    <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+    <script src="/Public/home/common/js/jquery-1.9.1.min.js"></script>
+    <script src="/Public/home/common/layer/layer.js"></script>
+    <script src="/Public/js/lib/es6-promise.min.js"></script>
+    <script src="/Public/js/lib/aliyun-oss-sdk-5.2.0.min.js"></script>
+    <script src="/Public/js/aliyun-upload-sdk-1.4.0.min.js"></script>
+</block>
+
+<block name="main">
+    <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+        <!-- 面包屑导航 -->
+        <ul class="breadcrumb">
+            <li><i class="fa fa-map-marker"></i></li>
+            <foreach name="_menu_tab['name']" item="tab_v" >
+                <li class="text-muted">{$tab_v}</li>
+            </foreach>
+            <li class="text-muted">{:isset($info)?'修改':查看}</li>
+        </ul>
+
+        <!-- 主体内容区域 -->
+        <div class="tab-content ct-tab-content">
+            <div class="panel-body">
+                <div class="builder formbuilder-box">
+                    <div class="form-group"></div>
+                    <div class="builder-container" >
+                        <div class="row" >
+                            <div class="col-xs-12">
+                                <form  class="form-horizontal form form-builder">
+                                    <div class="form-type-list">
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">用户UID：</label>
+                                            <div class="right">
+                                                <input type="text" name="user_id" value="" class="form-control input">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">选择视频：</label>
+                                            <div class="right">
+                                                <video style="height:auto;width: 30%;display: none" src="" id="video0" autoplay loop></video>
+                                                <input  type="file" style="height:auto;" id="video" name="video"/>
+                                                <div style="width: 0%; height: 10px; background-color: rgb(45, 147, 202);" id="jindu"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">视频标题：</label>
+                                            <div class="right">
+                                                <input type="text" name="video_title" value="" class="form-control input">
+                                            </div>
+                                        </div>
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">视频分类：</label>
+                                            <select name="category_id">
+                                                <option value="0">无</option>
+                                                <volist name="category" id="paower">
+                                                    <option value="{$paower.id}" name="category_id">{$paower.name}</option>
+                                                </volist>
+                                            </select>
+                                        </div>
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">视频描述：</label>
+                                            <div class="auth3" style="line-height:120%;" >
+                                                <textarea class="form-control textarea" rows="5" id="video_describe"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">城市：</label>
+                                            <div class="right">
+
+                                                <iframe align="center" width="100%" height="570" src="map.html"  frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">推荐至首页：</label>
+                                            <div class="right">
+                                                <label><input name="is_tuijian" type="radio" value="1" <if condition="$info['is_tuijian'] eq 1">checked</if>/>是 </label>
+                                                <label><input name="is_tuijian" type="radio" value="2"  <if condition="$info['is_tuijian'] eq 0">checked</if>/>否 </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group"></div>
+                                        <div class="form-group bottom_button_list">
+                                            <input type="hidden" name="cover_url" value="{$info.cover_url}"/>
+                                            <a class="btn btn-primary submit ajax-post" type="buttom" target-form="form-builder" onclick="submit()">确认</a>
+                                            <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="uploadAuth" value="">
+    <input type="hidden" id="uploadAddress" value="">
+    <input type="hidden" id="videoId" value="">
+</block>
+
+<block name="script">
+    <script>
+        function submit(){
+            var f = document.getElementById("video").files;
+            var title = $(" input[ name='video_title' ] ").val();
+            var desc = $("#video_describe").val();
+            var city = window.frames[0].document.getElementById("address").value;
+            var lnglat = window.frames[0].document.getElementById("lnglat").value;
+            var is_tuijian = $("input[name='is_tuijian']:checked").val();
+            var user_id = $("input[name='user_id']").val();
+            var category_id = $("select option:selected").val();
+            $.post("{:U('addData')}",{user_id:user_id,lnglat:lnglat,city:city,title:title,name:f[0].name,desc:desc,is_tuijian:is_tuijian,category_id:category_id},function(res){
+                if(res.status==0){
+                    layer.msg(res.message);
+                    return;
+                }
+                $("#uploadAuth").val(res.UploadAuth);
+                $("#uploadAddress").val(res.UploadAddress);
+                $("#videoId").val(res.VideoId);
+                var userData = '{"Vod":{"StorageLocation":"","UserData":{"IsShowWaterMark":"false","Priority":"7"}}}';
+                uploader.addFile(f[0], null, null, null, userData);
+                layer.load(2);
+                uploader.startUpload();
+            })
+
+        }
+        var uploader = new AliyunUpload.Vod({
+            // 文件上传失败
+            'onUploadFailed': function (uploadInfo, code, message) {
+                layer.closeAll('loading');
+                layer.msg("文件上传失败，code:" + code + ", message:" + message);
+                location.reload();
+                //log("onUploadFailed: file:" + uploadInfo.file.name + ",code:" + code + ", message:" + message);
+            },
+            // 文件上传完成
+            'onUploadSucceed': function (uploadInfo) {
+                layer.closeAll('loading');
+                layer.msg('上传成功！');
+                //log("onUploadSucceed: " + uploadInfo.file.name + ", endpoint:" + uploadInfo.endpoint + ", bucket:" + uploadInfo.bucket + ", object:" + uploadInfo.object);
+            },
+            // 文件上传进度
+            'onUploadProgress': function (uploadInfo, totalSize, loadedPercent) {
+                $("#jindu").css("width",(loadedPercent * 100.00).toFixed(2) + "%");
+                //log("onUploadProgress:file:" + uploadInfo.file.name + ", fileSize:" + totalSize + ", percent:" + (loadedPercent * 100.00).toFixed(2) + "%");
+            },
+            // STS临时账号会过期，过期时触发函数
+            'onUploadTokenExpired': function (uploadInfo) {
+                layer.closeAll('loading');
+                layer.msg("文件上传失败" );
+            },
+            onUploadCanceled:function(uploadInfo)
+            {
+                layer.closeAll('loading');
+                layer.msg("文件上传失败" );
+            },
+            // 开始上传
+            'onUploadstarted': function (uploadInfo) {
+                var uploadAuth = document.getElementById("uploadAuth").value;
+                var uploadAddress = document.getElementById("uploadAddress").value;
+                var videoId = document.getElementById("videoId").value;
+                uploader.setUploadAuthAndAddress(uploadInfo, uploadAuth, uploadAddress,videoId);
+            }
+            ,
+            'onUploadEnd':function(uploadInfo){
+
+            }
+        });
+        $("#video").change(function(){
+            console.log(1213231)
+            if(checkTv()==1){
+                layer.msg('请选择视频文件');
+                document.getElementById('video').value="";   // 不符合，就清除，重新选择
+                return;
+            };
+
+            var objUrl = getObjectURL(this.files[0]) ;
+            if (objUrl) {
+                $("#video0").attr("src", objUrl);
+                $("#video0").css('display','inline');
+                $("#xuanzetxt").text('重新选择');
+            }
+        }) ;
+        //建立一个可存取到该file的url
+        function getObjectURL(file) {
+
+            var url = null ;
+            if (window.createObjectURL!=undefined) { // basic
+                url = window.createObjectURL(file) ;
+            } else if (window.URL!=undefined) { // mozilla(firefox)
+                url = window.URL.createObjectURL(file) ;
+            } else if (window.webkitURL!=undefined) { // webkit or chrome
+                url = window.webkitURL.createObjectURL(file) ;
+            }
+
+
+            return url ;
+        }
+        //判断类型
+        function checkTv(){
+            var tv_id =document.getElementById('video').value;//根据id得到值
+            var index= tv_id.indexOf("."); //（考虑严谨用lastIndexOf(".")得到）得到"."在第几位
+            tv_id=tv_id.substring(index); //截断"."之前的，得到后缀
+            if(tv_id!=".mp4"&&tv_id!=".rmvb"&&tv_id!=".avi"&&tv_id!=".ts"){ //根据后缀，判断是否符合视频格式
+                return 1;
+            }
+        }
+    </script>
+    <script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

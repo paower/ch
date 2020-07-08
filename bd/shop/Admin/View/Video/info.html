@@ -1,0 +1,121 @@
+<extend name="Public/layout"/>
+<block name="style" >
+    <link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+    <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+</block>
+
+<block name="main">
+    <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+        <!-- 面包屑导航 -->
+        <ul class="breadcrumb">
+            <li><i class="fa fa-map-marker"></i></li>
+            <foreach name="_menu_tab['name']" item="tab_v" >
+                <li class="text-muted">{$tab_v}</li>
+            </foreach>
+            <li class="text-muted">{:isset($info)?'修改':查看}</li>
+        </ul>
+
+        <!-- 主体内容区域 -->
+        <div class="tab-content ct-tab-content">
+            <div class="panel-body">
+                <div class="builder formbuilder-box">
+                    <div class="form-group"></div>
+                    <div class="builder-container" >
+                        <div class="row" >
+                            <div class="col-xs-12">
+                                <form action="{:U('setStatus')}" method="post" class="form-horizontal form form-builder">
+                                    <div class="form-type-list">
+                                        <div class="form-group hidden item_id ">
+                                            <label class="left control-label">ID：</label>
+                                            <div class="right">
+                                                <input type="hidden" class="form-control input" name="video_id" value="{$info.video_id}">
+                                                <input type="hidden" class="form-control input" name="aliyun_video_id" value="{$info.aliyun_video_id}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">阿里云视频ID：</label>
+                                            <div class="right">
+                                                {$info.aliyun_video_id}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">视频：</label>
+                                            <div class="right">
+                                                <video width="320" height="240" loop autoplay poster preload controls>
+                                                    <source src="{$info.video_url}" type="video/mp4">
+                                                </video>
+                                            </div>
+                                        </div>
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">视频封面：</label>
+                                            <div class="right">
+                                                <img src="{$info.cover_url}" alt="" style="width: 100px;">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">视频分类：</label>
+                                            <div class="right">
+                                                {$info.name}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">视频标题：</label>
+                                            <div class="right">
+                                                {$info.video_title}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">视频描述：</label>
+                                            <div class="auth3" style="line-height:120%;" >
+                                                {$info.video_describe}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">城市：</label>
+                                            <div class="right">
+                                                {$info.city} ({$info.lng},{$info.lat})
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">审核状态：</label>
+                                            <div class="right">
+                                                <label><input name="status" type="radio" value="1" <if condition="$info['status'] eq 1">checked</if>/>通过 </label>
+                                                <label><input name="status" type="radio" value="2"  <if condition="$info['status'] eq 2">checked</if>/>失败 </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group item_title ">
+                                            <label class="left control-label">推荐至首页：</label>
+                                            <div class="right">
+                                                <label><input name="is_tuijian" type="radio" value="1" <if condition="$info['is_tuijian'] eq 1">checked</if>/>是 </label>
+                                                <label><input name="is_tuijian" type="radio" value="2"  <if condition="$info['is_tuijian'] eq 0">checked</if>/>否 </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group"></div>
+                                        <div class="form-group bottom_button_list">
+                                            <input type="hidden" name="cover_url" value="{$info.cover_url}"/>
+                                            <a class="btn btn-primary submit ajax-post" type="submit" target-form="form-builder">通过</a>
+                                            <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

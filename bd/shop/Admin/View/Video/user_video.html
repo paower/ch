@@ -1,0 +1,150 @@
+<extend name="Public/layout"/>
+<block name="style" >
+    <link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+    <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+    <style>
+        .sum {overflow:hidden}
+        .sum div{font-size: 20px; float: left; padding: 10px;color: #333;}
+    </style>
+
+</block>
+
+<block name="main">
+    <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+        <!-- 面包屑导航 -->
+        <ul class="breadcrumb">
+            <li><i class="fa fa-map-marker"></i></li>
+            <foreach name="_menu_tab['name']" item="tab_v" >
+                <li class="text-muted">{$tab_v}</li>
+            </foreach>
+        </ul>
+
+        <!-- 主体内容区域 -->
+        <div class="tab-content ct-tab-content">
+            <div class="panel-body">
+                <div class="builder formbuilder-box">
+
+                    <div class="form-group"></div>
+
+                    <!-- 顶部工具栏按钮 -->
+                    <div class="builder-toolbar">
+                        <div class="row">
+                            <!-- 工具栏按钮 -->
+                            <div class="col-xs-12 col-sm-8 button-list clearfix">
+                                <div class="form-group">
+                                    <a title="新增" class="btn btn-primary-outline btn-pill" href="{:U('Video/add')}">新增</a>&nbsp;
+                                </div>
+                            </div>
+
+                            <!-- 搜索框 -->
+                        </div>
+                    </div>
+
+
+                    <style type="text/css">
+                        tr,td{
+                            margin: 0 !important;
+                            padding: 5px 5px !important;
+                        }
+                    </style>
+
+                    <!-- 数据列表 -->
+                    <div class="builder-container">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="builder-table">
+                                    <div class="panel panel-default table-responsive">
+                                        <table class="table table-bordered table-striped table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>用户</th>
+                                                <th>视频描述</th>
+                                                <th>提交时间</th>
+                                                <th>状态</th>
+<!--                                                <th>过期时间</th>-->
+                                                <th style="max-width:20%" >操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <volist name="list" id="data">
+                                                <tr>
+
+                                                    <td>{$data['video_id']}</td>
+                                                    <td>
+                                                        账号：{$data['username']}<br>
+                                                        手机：{$data['mobile']}
+                                                    </td>
+                                                    <td>
+                                                        {$data['video_describe']}
+                                                    </td>
+                                                    <td>{$data['create_time']|date="y/m/d",###}</td>
+                                                    <td>
+                                                        <if condition="$data['status'] eq 1">
+                                                            通过
+                                                        <elseif condition="$data['status'] eq 0"/>
+                                                            未审核
+                                                        <elseif condition="$data['status'] eq 2"/>
+                                                            未通过
+                                                        </if>
+                                                    </td>
+
+                                                    <td>
+                                                        <a name="edit" title="查看" class="label label-primary-outline label-pill" href="{:U('Video/info',array('id'=>$data['video_id']))}">查看</a>
+                                                        <a name="forbid" title="删除" class="label label-danger-outline label-pill ajax-get confirm" href="{:U('Video/del',array('id'=>$data['video_id']))}">删除</a>
+                                                    </td>
+                                                </tr>
+
+                                            </volist>
+
+                                            <empty name="list">
+                                                <tr class="builder-data-empty">
+                                                    <td class="text-center empty-info" colspan="20">
+                                                        <i class="fa fa-database"></i> 暂时没有数据<br>
+                                                    </td>
+                                                </tr>
+                                            </empty>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <notempty name="table_data_page">
+                                        <ul class="pagination">{$table_data_page}</ul>
+                                    </notempty>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        $('.date').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true,
+            todayBtn:1, //是否显示今日按钮
+        });
+
+
+
+        $(document).ready(function(){
+
+            $(".bky").click(function(){
+
+                this.href="###";
+                alert("您无权限访问");
+                return false;
+
+            });
+
+        });
+    </script>
+    <script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>

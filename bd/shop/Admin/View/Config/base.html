@@ -1,0 +1,261 @@
+<extend name="Public/layout"/>
+<block name="style" >
+    <link rel="stylesheet" type="text/css" href="__LYUI__/css/lyui.extend.min.css">
+    <link rel="stylesheet" type="text/css" href="__ADMIN_CSS__/style.css">
+</block>
+
+<block name="main">
+   <div id="main" class="col-xs-12 col-sm-9 main" style="overflow-y: scroll;">
+        <!-- 面包屑导航 -->
+        <ul class="breadcrumb">
+            <li><i class="fa fa-map-marker"></i></li>
+            <foreach name="_menu_tab['name']" item="tab_v" >
+            <li class="text-muted">{$tab_v}</li>
+            </foreach>
+             <li class="text-muted">基本设置</li>
+        </ul>
+
+        <!-- 主体内容区域 -->
+        <div class="tab-content ct-tab-content">
+            <div class="panel-body">
+                <div class="builder formbuilder-box">
+                    <div class="builder-tabs builder-form-tabs">
+                        <ul class="nav nav-tabs">
+
+                            
+                            <li class="active">
+                                <a href="{:U('Config/group',array('group'=>3))}">网站开关</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="form-group"></div>
+                    <div class="builder-container" >
+                        <div class="row" >
+                            <div class="col-xs-12" >
+                                <form action="{:U('Config/groupSave2')}" method="post" class="form-horizontal form form-builder">
+                                <div class="form-type-list">
+
+                                   <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">注册赠送积分数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="number" name="jifen" class="form-control" value="{$jifen}" >
+                                         
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                       
+                                       <label class="left control-label">奖励开关：</label>
+                                        <div class="right">
+                                            <div class="radio-inline cui-control cui-radio">
+                                                <label for="config[ADMIN_TABS]0">
+                                                    <input type="radio" id="config[ADMIN_TABS]0" class="radio" name="regjifen" value="0" <eq name="regjifen" value='0' > checked="true"</eq> > 
+                                                    <span class="cui-control-indicator"></span>
+                                                    <span>关闭</span>
+                                               </label>
+                                            </div>
+                                            <div class="radio-inline cui-control cui-radio">
+                                                    <label for="config[ADMIN_TABS]1">
+                                                        <input type="radio" id="config[ADMIN_TABS]1" class="radio" name="regjifen" value="1" <eq name="regjifen" value='1' > checked="true"</eq> > 
+                                                        <span class="cui-control-indicator"></span>
+                                                        <span>开启</span>
+                                                    </label>
+                                            </div>        
+                                        </div>
+
+                                    </div>
+
+                                   
+                                <div class="form-group"></div>
+                                <div class="form-group bottom_button_list">
+                                    <a class="btn btn-primary submit ajax-post" type="submit" target-form="form-builder">确定</a>
+                                    <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                </div>
+                            </div>
+                        </form>
+
+                        前台显示人数设置<hr style="margin-top: 0px;width: 100%">
+
+
+
+                         <form action="{:U('Config/fuser')}" method="post" class="form-horizontal form form-builder ssss1">
+                                <div class="form-type-list">
+
+                                   <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">总人数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="number" name="false_user" class="form-control" value="{$false_user}" >
+                                         
+                                        </div>
+                                    </div>
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">增加人数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="number" name="add_user" class="form-control" value="{$add_user}" >
+                                         
+                                        </div>
+                                    </div>
+                                <div class="form-group"></div>
+                                <div class="form-group bottom_button_list">
+                                    <a class="btn btn-primary submit ajax-post" type="submit" target-form="ssss1">确定</a>
+                                    <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                </div>
+                            </div>
+                        </form>
+
+                        余额投资设置<hr style="margin-top: 0px;width: 100%">
+
+
+
+                         <form action="{:U('Config/mbalance')}" method="post" class="form-horizontal form form-builder ssss2">
+                                <div class="form-type-list">
+
+                                   <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">余额低于多少无法投资：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="number" name="min_balance" class="form-control" value="{$min_balance['value']}" >
+                                         
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                       
+                                       <label class="left control-label">奖励开关：</label>
+                                        <div class="right">
+                                            <div class="radio-inline cui-control cui-radio">
+                                                <label for="config[ADMIN_TABS]0">
+                                                    <input type="radio" id="config[ADMIN_TABS]0" class="radio" name="status" value="0"<if condition="$min_balance['status'] eq 0"> checked="true"</if>> 
+                                                    <span class="cui-control-indicator"></span>
+                                                    <span>关闭</span>
+                                               </label>
+                                            </div>
+                                            <div class="radio-inline cui-control cui-radio">
+                                                    <label for="config[ADMIN_TABS]1">
+                                                        <input type="radio" id="config[ADMIN_TABS]1" class="radio" name="status" value="1" <if condition="$min_balance['status'] eq 1"> checked="true"</if> > 
+                                                        <span class="cui-control-indicator"></span>
+                                                        <span>开启</span>
+                                                    </label>
+                                            </div>        
+                                        </div>
+
+                                    </div>
+                                <div class="form-group"></div>
+                                <div class="form-group bottom_button_list">
+                                    <a class="btn btn-primary submit ajax-post" type="submit" target-form="ssss2">确定</a>
+                                    <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                </div>
+                            </div>
+                        </form>
+
+                        推荐奖励设置<hr style="margin-top: 0px;width: 100%">
+
+
+
+                         <form action="{:U('Config/tuijian')}" method="post" class="form-horizontal form form-builder ssss3">
+                                <div class="form-type-list">
+
+                                   <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">推荐一个人赠送积分数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="number" name="jifens" class="form-control" value="{$jifens}" >
+                                         
+                                        </div>
+                                    </div>
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">赠送积分最大推荐人数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="number" name="rens" class="form-control" value="{$rens}" >
+                                         
+                                        </div>
+                                    </div>
+
+                                 
+
+                                   
+                                <div class="form-group"></div>
+                                <div class="form-group bottom_button_list">
+                                    <a class="btn btn-primary submit ajax-post" type="submit" target-form="ssss3">确定</a>
+                                    <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                </div>
+                            </div>
+                        </form>
+
+                        蓝钻奖励设置<hr style="margin-top: 0px;width: 100%">
+
+
+
+                         <form action="{:U('Config/blued')}" method="post" class="form-horizontal form form-builder ssss4">
+                                <div class="form-type-list">
+
+                                   <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">升级蓝钻时，推荐人奖励积分：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="number" name="b_drills" class="form-control" value="{$b_drills}" >
+                                         
+                                        </div>
+                                    </div>
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">赠送积分最大推荐人数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="number" name="b_num" class="form-control" value="{$b_num}" >
+                                         
+                                        </div>
+                                    </div>
+
+                                 
+
+                                   
+                                <div class="form-group"></div>
+                                <div class="form-group bottom_button_list">
+                                    <a class="btn btn-primary submit ajax-post" type="submit" target-form="ssss4">确定</a>
+                                    <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                </div>
+                            </div>
+                        </form>
+
+                        金钻奖励设置<hr style="margin-top: 0px;width: 100%">
+
+
+
+                         <form action="{:U('Config/goldd')}" method="post" class="form-horizontal form form-builder ssss5">
+                                <div class="form-type-list">
+
+                                   <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">升级金钻时，推荐人奖励积分：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="number" name="g_drills" class="form-control" value="{$g_drills}" >
+                                         
+                                        </div>
+                                    </div>
+                                    <div class="form-group item_config[WEB_SITE_TITLE] ">
+                                        <label class="left control-label">赠送积分最大推荐人数：</label>
+                                        <div style="width:200px" class="input-group">
+                                            <input type="number" name="g_num" class="form-control" value="{$g_num}" >
+                                         
+                                        </div>
+                                    </div>
+
+                                 
+
+                                   
+                                <div class="form-group"></div>
+                                <div class="form-group bottom_button_list">
+                                    <a class="btn btn-primary submit ajax-post" type="submit" target-form="ssss5">确定</a>
+                                    <a class="btn btn-danger return" onclick="javascript:history.back(-1);return false;">取消</a>
+                                </div>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>                   
+</div>
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__LYUI__/js/lyui.extend.min.js"></script>
+</block>
